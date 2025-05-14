@@ -1,42 +1,36 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.my-button {
+  background-color: #1890ff; /* Задаем синий фон */
+  border-color: #1890ff; /* Синяя рамка */
+  color: white; /* Белый цвет текста */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.my-button:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Пример дополнительных стилей для таблицы (если используется Ant Design Table) */
+/*
+.my-table .ant-table {
+  border: 1px solid #d9d9d9;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+*/
+
+.ant-layout-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.card {
-  padding: 2em;
+.ant-list,
+.ant-table {
+  width: 100%;
 }
 
-.read-the-docs {
-  color: #888;
+.ant-layout-sider {
+  border-right: none !important;
+}
+.ant-layout-header {
+  border-bottom: none !important;
 }
