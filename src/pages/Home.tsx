@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Table, Button, Modal, Form, Input } from "antd";
-import { useProjects } from "../store/ProjectsContext";
 import { Link } from "react-router-dom";
+import { useProjects } from "../store/ProjectsContext";
 
 const Home: React.FC = () => {
   const { projects, addProject } = useProjects();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
+  // Открыть модальное окно создания проекта
   const showModal = () => setIsModalOpen(true);
+
+  // Обработка подтверждения создания проекта
   const handleOk = () => {
     form.validateFields().then((values) => {
       addProject(values.name);
@@ -16,13 +19,19 @@ const Home: React.FC = () => {
       setIsModalOpen(false);
     });
   };
+
   const handleCancel = () => {
     form.resetFields();
     setIsModalOpen(false);
   };
 
+  // Колонки таблицы проектов
   const columns = [
-    { title: "Название проекта", dataIndex: "name", key: "name" },
+    {
+      title: "Название проекта",
+      dataIndex: "name",
+      key: "name",
+    },
     {
       title: "Количество задач",
       dataIndex: "tasks",
@@ -33,31 +42,46 @@ const Home: React.FC = () => {
       title: "Действия",
       key: "actions",
       render: (_: any, record: any) => (
-        <Link to={`/projects/${record.id}`}>Открыть</Link>
+        <Link to={`/project/${record.id}`}>Открыть</Link>
       ),
     },
   ];
 
   return (
     <div>
-      <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }}>
+      {/* Кнопка создания нового проекта */}
+      <Button className="my-button" onClick={showModal}>
         Создать проект
       </Button>
-      <Table dataSource={projects} columns={columns} rowKey="id" />
 
+      {/* Таблица проектов */}
+      <Table
+        className="my-table"
+        columns={columns}
+        dataSource={projects}
+        rowKey="id"
+        locale={{
+          emptyText: "Нет проектов",
+        }} /* сообщение при отсутствии данных */
+        style={{ marginTop: 16 }}
+      />
+
+      {/* Модальное окно для создания проекта */}
       <Modal
-        title="Создать проект"
+        title="Новый проект"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText="Создать"
+        cancelText="Отмена"
       >
         <Form form={form} layout="vertical" name="projectForm">
           <Form.Item
-            name="name"
             label="Название проекта"
+            name="name"
             rules={[{ required: true, message: "Введите название проекта" }]}
           >
-            <Input />
+            <Input placeholder="Введите название проекта" />
           </Form.Item>
         </Form>
       </Modal>

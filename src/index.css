@@ -1,3 +1,4 @@
+/* Глобальные стили и сброс отступов */
 html,
 body,
 #root {
@@ -5,43 +6,9 @@ body,
   margin: 0;
   padding: 0;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Убираем линию между сайдбаром и контентом */
-.ant-layout-sider {
-  box-shadow: none !important;
-  border-inline-end: none !important;
-}
-
-/* Убираем линию под header */
-.ant-layout-header {
-  border-bottom: none !important;
-  box-shadow: none !important;
-}
-
-/* Чат – убираем рамку и тень у Card */
-.ant-card {
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* Контейнер на всю высоту */
-#root,
-.ant-layout {
-  height: 100%;
+  background-color: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }

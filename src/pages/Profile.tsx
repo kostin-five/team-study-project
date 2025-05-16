@@ -7,8 +7,9 @@ interface ProfileData {
 }
 
 const Profile: React.FC = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<ProfileData>();
 
+  // При монтировании загружаем сохранённые данные профиля из localStorage
   useEffect(() => {
     const stored = localStorage.getItem("profile");
     if (stored) {
@@ -17,22 +18,30 @@ const Profile: React.FC = () => {
   }, [form]);
 
   const onFinish = (values: ProfileData) => {
+    // Сохраняем данные профиля в localStorage
     localStorage.setItem("profile", JSON.stringify(values));
   };
 
   return (
     <div>
       <h2>Профиль пользователя</h2>
-      <Form form={form} layout="vertical" onFinish={onFinish}>
-        <Form.Item name="name" label="Имя">
-          <Input />
+      <Form
+        form={form}
+        layout="vertical"
+        name="profileForm"
+        onFinish={onFinish}
+      >
+        <Form.Item label="Имя" name="name">
+          <Input placeholder="Ваше имя" />
         </Form.Item>
-        <Form.Item name="email" label="Email">
-          <Input />
+        <Form.Item label="Email" name="email">
+          <Input type="email" placeholder="Ваш email" />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
-          Сохранить
-        </Button>
+        <Form.Item>
+          <Button className="my-button" htmlType="submit">
+            Сохранить
+          </Button>
+        </Form.Item>
       </Form>
     </div>
   );

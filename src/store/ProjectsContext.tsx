@@ -8,6 +8,7 @@ interface ProjectsContextType {
   addTask: (projectId: string, task: Omit<Task, "id" | "completed">) => void;
 }
 
+// Инициализируем контекст (начальное значение будет установлено провайдером)
 const ProjectsContext = createContext<ProjectsContextType | undefined>(
   undefined
 );
@@ -15,15 +16,18 @@ const ProjectsContext = createContext<ProjectsContextType | undefined>(
 export const ProjectsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  // Состояние списка проектов (инициализация из localStorage или пустым массивом)
   const [projects, setProjects] = useState<Project[]>(() => {
     const stored = localStorage.getItem("projects");
     return stored ? JSON.parse(stored) : [];
   });
 
+  // Сохраняем проекты в localStorage при каждом обновлении
   useEffect(() => {
     localStorage.setItem("projects", JSON.stringify(projects));
   }, [projects]);
 
+  // Добавление нового проекта
   const addProject = (name: string) => {
     const newProject: Project = {
       id: Date.now().toString(),
@@ -33,6 +37,7 @@ export const ProjectsProvider: React.FC<{ children: ReactNode }> = ({
     setProjects([...projects, newProject]);
   };
 
+  // Добавление новой задачи в проект по ID
   const addTask = (
     projectId: string,
     taskData: Omit<Task, "id" | "completed">
@@ -59,6 +64,7 @@ export const ProjectsProvider: React.FC<{ children: ReactNode }> = ({
     </ProjectsContext.Provider>
   );
 };
+
 
 export const useProjects = () => {
   const context = useContext(ProjectsContext);

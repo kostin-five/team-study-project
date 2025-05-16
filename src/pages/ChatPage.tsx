@@ -11,75 +11,63 @@ interface Message {
 const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [connected, setConnected] = useState(false);
   const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
+    // Подключаем WebSocket к echo-серверу
     ws.current = new WebSocket("wss://echo.websocket.org");
-
-    ws.current.onopen = () => setConnected(true);
-
     ws.current.onmessage = (event) => {
       const isMine = event.data.startsWith("##MY##");
       const cleanText = event.data.replace("##MY##", "");
+      // Добавляем новое сообщение (отправителя определяем по префиксу)
       setMessages((prev) => [
         ...prev,
         { text: cleanText, from: isMine ? "me" : "server" },
       ]);
     };
-
+    // При размонтировании закрываем соединение
     return () => {
       ws.current?.close();
     };
   }, []);
 
+  // Отправка сообщения по WebSocket
   const sendMessage = () => {
-    if (input.trim() && ws.current?.readyState === WebSocket.OPEN) {
+    if (
+      input.trim() &&
+      ws.current &&
+      ws.current.readyState === WebSocket.OPEN
+    ) {
       ws.current.send("##MY##" + input);
       setInput("");
     }
   };
 
   return (
-    <Card
-      title="Чат"
-      style={{
-        maxWidth: 800,
-        margin: "0 auto",
-        boxShadow: "none",
-        border: "none",
-      }}
-    >
+    <Card title="Чат" style={{ maxWidth: 600 }}>
+      {/* Список сообщений */}
       <List
-        size="small"
-        bordered
-        locale={{ emptyText: null }}
-        loading={!connected}
         dataSource={messages}
         renderItem={(item) => (
-          <List.Item
-            style={{
-              justifyContent: item.from === "me" ? "flex-end" : "flex-start",
-            }}
-          >
-            <Text type={item.from === "me" ? "success" : "secondary"}>
-              {item.text}
-            </Text>
+          <List.Item>
+            {/* Сообщение отображаем синим цветом */}
+            <Text style={{ color: "#1890ff" }}>{item.text}</Text>
           </List.Item>
         )}
         style={{ height: 300, overflowY: "auto", marginBottom: 16 }}
       />
-      <div style={{ display: "flex", gap: "8px" }}>
-        <Input
-          style={{ flex: 1 }}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onPressEnter={sendMessage}
-        />
-        <Button type="primary" onClick={sendMessage}>
-          Отправить
-        </Button>
-      </div>
+      {/* Поле ввода нового сообщения */}
+      <Input
+        placeholder="Введите сообщение..."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onPressEnter={sendMessage}
+        style={{ marginBottom: 8 }}
+      />
+      {/* Кнопка отправки сообщения */}
+      <Button className="my-button" onClick={sendMessage}>
+        Отправить
+      </Button>
     </Card>
   );
 };

@@ -5,7 +5,7 @@ const { Header: AntHeader } = Layout;
 
 const Header: React.FC = () => (
   <AntHeader style={{ background: "#fff", padding: "0 16px" }}>
-    <h2>Приложение проектов</h2>
+    <h1>Приложение проектов</h1>
   </AntHeader>
 );
 
