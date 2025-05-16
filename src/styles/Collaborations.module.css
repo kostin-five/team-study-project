@@ -1,0 +1,69 @@
+.userList {
+  background-color: #001529;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+.userList h3 {
+  color: #fff;
+  margin-top: 0;
+}
+.userItem {
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.userItem:hover {
+  background-color: #1890ff33; /* hover highlight */
+}
+.currentUser {
+  background-color: #1890ff55; /* highlight current user */
+}
+
+/* Chat window */
+.chatWindow {
+  background-color: #001529;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+.chatWindow h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+/* Container for messages list */
+.messages {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Individual message bubble */
+.message {
+  background-color: #444444;
+  color: #ffffff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  max-width: 80%;
+}
+/* Author name inside message */
+.messageAuthor {
+  font-weight: bold;
+}
+/* Current user's message alignment and style */
+.mine {
+  align-self: flex-end;
+  background-color: #1677ff;
+  /* text color remains white for contrast */
+}
+
+/* New message input area */
+.newMessage {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
