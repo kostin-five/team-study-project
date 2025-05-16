@@ -1,20 +1,20 @@
-.ant-layout-content {
+/* .ant-layout-content {
   padding: 16px;
   background-color: #001529;
   min-height: 100vh;
 }
 
-/* Адаптивность layout */
+
 @media (max-width: 768px) {
   .ant-layout-content {
     padding: 8px;
   }
 }
 
-/* Пример стилизации заголовков */
+
 h1,
 h2,
 h3 {
   color: #ffffff;
   font-weight: 500;
-}
+} */

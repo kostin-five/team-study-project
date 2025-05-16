@@ -1,46 +1,35 @@
-// import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
 import { Layout } from "antd";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import HeaderBar from "./components/Header"; // Header component (without theme toggle now)
-import BreadcrumbsNav from "./components/Breadcrumbs";
-import ProfilePage from "./pages/ProfilePage";
-import DashboardPage from "./pages/DashboardPage";
-import CalendarPage from "./pages/CalendarPage";
-import ToolsPage from "./pages/ToolsPage";
-import AnalyticsPage from "./pages/AnalyticsPage";
-import CollaborationsPage from "./pages/CollaborationsPage";
+import PersonalAccount from "./components/PersonalAccount";
+import LessonsPage from "./components/lessons/LessonsPage";
+import LessonDetail from "./components/lessons/LessonDetail";
+import AnalyticsPage from "./components/analytics/AnalyticsPage";
+import ProjectsPage from "./components/projects/ProjectsPage";
 
-const { Content } = Layout;
+const { Sider, Content } = Layout;
 
-function App() {
+const App: React.FC = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      {/* Sidebar with navigation tabs */}
-      <Sidebar />
-      <Layout>
-        {/* Top header bar (now without theme switch) */}
-        <HeaderBar />
-        {/* Main content area with breadcrumbs and page content */}
+      <Sider width={200}>
+        <Sidebar />
+      </Sider>
+      <Layout >
         <Content style={{ padding: "16px" }}>
-          {/* Breadcrumb navigation */}
-          <BreadcrumbsNav />
-          {/* Define application routes */}
           <Routes>
-            <Route path="/" element={<Navigate to="/profile" replace />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/projects/dashboard" element={<DashboardPage />} />
-            <Route path="/projects/calendar" element={<CalendarPage />} />
-            <Route path="/tools" element={<ToolsPage />} />
+            <Route path="/" element={<Navigate to="/account" replace />} />
+            <Route path="/account" element={<PersonalAccount />} />
+            <Route path="/lessons" element={<LessonsPage />} />
+            <Route path="/lessons/:id" element={<LessonDetail />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
-            <Route path="/collaborations" element={<CollaborationsPage />} />
-            {/* Fallback for any unknown routes */}
-            <Route path="*" element={<Navigate to="/profile" replace />} />
+            <Route path="/projects" element={<ProjectsPage />} />
           </Routes>
         </Content>
       </Layout>
     </Layout>
   );
-}
+};
 
 export default App;
