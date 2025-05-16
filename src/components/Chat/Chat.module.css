@@ -1,0 +1,28 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 8px;
+  height: 400px;
+}
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 8px;
+}
+.message {
+  margin-bottom: 8px;
+}
+.messageUser {
+  font-weight: bold;
+  margin-right: 8px;
+}
+.messageTime {
+  font-size: 0.85em;
+  color: #888;
+  margin-right: 8px;
+}
+.inputSection {
+  display: flex;
+  gap: 8px;
+}

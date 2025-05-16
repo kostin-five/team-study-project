@@ -1,48 +1,76 @@
-import React, { useEffect } from "react";
-import { Form, Input, Button } from "antd";
+import React, { useContext } from "react";
+import { Form, Input, Select, Button, Switch, message } from "antd";
+import { ThemeContext } from "../App";
+import styles from "./Profile.module.css";
 
 interface ProfileData {
   name: string;
   email: string;
+  role: string;
 }
 
 const Profile: React.FC = () => {
+  const { theme, updateTheme } = useContext(ThemeContext);
+  const storedProfile = localStorage.getItem("profile");
+  const initialProfile: ProfileData = storedProfile
+    ? JSON.parse(storedProfile)
+    : { name: "", email: "", role: "User" };
+
   const [form] = Form.useForm<ProfileData>();
 
-  // При монтировании загружаем сохранённые данные профиля из localStorage
-  useEffect(() => {
-    const stored = localStorage.getItem("profile");
-    if (stored) {
-      form.setFieldsValue(JSON.parse(stored));
-    }
-  }, [form]);
-
   const onFinish = (values: ProfileData) => {
-    // Сохраняем данные профиля в localStorage
     localStorage.setItem("profile", JSON.stringify(values));
+    message.success("Profile saved successfully");
   };
 
   return (
-    <div>
-      <h2>Профиль пользователя</h2>
+    <div className={styles.profileContainer}>
+      <h2>Profile</h2>
       <Form
         form={form}
         layout="vertical"
-        name="profileForm"
+        initialValues={initialProfile}
         onFinish={onFinish}
       >
-        <Form.Item label="Имя" name="name">
-          <Input placeholder="Ваше имя" />
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Please enter your name" }]}
+        >
+          <Input />
         </Form.Item>
-        <Form.Item label="Email" name="email">
-          <Input type="email" placeholder="Ваш email" />
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            { required: true, message: "Please enter your email" },
+            { type: "email", message: "Please enter a valid email" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item label="Role" name="role">
+          <Select>
+            <Select.Option value="Admin">Admin</Select.Option>
+            <Select.Option value="User">User</Select.Option>
+            <Select.Option value="Guest">Guest</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item>
-          <Button className="my-button" htmlType="submit">
-            Сохранить
+          <Button type="primary" htmlType="submit">
+            Save Profile
           </Button>
         </Form.Item>
       </Form>
+      <div className={styles.themeToggle}>
+        <span>Theme:</span>
+        <Switch
+          checked={theme === "dark"}
+          onChange={(checked) => updateTheme(checked ? "dark" : "light")}
+          checkedChildren="Dark"
+          unCheckedChildren="Light"
+        />
+      </div>
     </div>
   );
 };
