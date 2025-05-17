@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import type { DropResult } from "react-beautiful-dnd";
 import { Card, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import type { Task, TasksData } from "../../types";
+import type { TasksData } from "../../types";
 import { addTaskCompletion } from "../../utils/storage";
 import "./KanbanBoard.css"; // подключаем стили
 
@@ -50,7 +50,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
         [destCol]: destTasks,
       }));
       if (destCol === "done" && sourceCol !== "done") {
-        addTaskCompletion(moved.id);
+        addTaskCompletion();
       }
     }
   };

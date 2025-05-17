@@ -1,5 +1,5 @@
 // Utility functions for localStorage data persistence
-import type { Lesson, Task, TasksData } from "../types/index";
+import type { Lesson, TasksData } from "../types/index";
 
 const LS_LESSONS = "lessons";
 const LS_TASKS = "tasks";
@@ -60,7 +60,7 @@ export function getNextLessonId(): string {
 }
 
 // Log a task completion event (timestamp)
-export function addTaskCompletion(taskId: string): void {
+export function addTaskCompletion(): void {
   const timestamp = Date.now();
   try {
     const data = localStorage.getItem(LS_TASK_EVENTS);
@@ -73,7 +73,7 @@ export function addTaskCompletion(taskId: string): void {
 }
 
 // Log a test completion event (timestamp)
-export function addTestResult(lessonId: string): void {
+export function addTestResult(): void {
   const timestamp = Date.now();
   try {
     const data = localStorage.getItem(LS_TEST_EVENTS);

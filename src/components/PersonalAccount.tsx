@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, Select, Tag, message } from "antd";
-import { loadUserName, saveUserName } from "../utils/storage";
 
 const { Option } = Select;
 

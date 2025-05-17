@@ -24,7 +24,7 @@ const LessonDetail: React.FC = () => {
     if (selectedAnswer === null) return;
     const isCorrect = selectedAnswer === lesson.test.correctIndex;
     setResult(isCorrect);
-    addTestResult(lesson.id);
+    addTestResult();
   };
 
   return (

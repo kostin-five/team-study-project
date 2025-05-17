@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Modal, Input, DatePicker, Button } from "antd";
-import dayjs, { Dayjs } from "dayjs";
+import { Tabs, Modal, Input, DatePicker } from "antd";
+import { Dayjs } from "dayjs";
 import type { Task, TasksData } from "../../types";
 import {
   loadTasksData,
@@ -80,7 +80,7 @@ const ProjectsPage: React.FC = () => {
     setTasksData(updated);
 
     if (newTaskColumn === "done") {
-      addTaskCompletion(newTask.id);
+      addTaskCompletion();
     }
     setModalVisible(false);
   };
